@@ -1,0 +1,58 @@
+
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-danger">
+                        <h4 class="card-title ">NOS FORMATIONS</h4>
+                        <button type="button" class="btn btn-light" >Ajouter une nouvelle formation </button>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead class=" text-primary">
+                                    <th>               
+                                    </th>
+                                    <th>
+                                       TITRE
+                                    </th>
+                                    <th>
+                                        FORMATEUR
+                                    </th>
+                                    <th>
+                                     DESCRIPTION
+                                    </th>
+                                    <th>
+                                       DATE
+                                    </th>
+                                    <th>
+                                      PRIX
+                                     </th>
+                                </thead>
+                                <tbody>
+                                    <tr  *ngFor = "let formation of formations">
+                                        <td>
+                                            <img src="{{formation.imageurl}}" alt="" class="img-fluid w-60">
+                                        </td>
+                                        <td>
+                                            {{formation.titre}}
+                                        </td>
+                                        <td>
+                                            {{formation.formateur}}
+                                        </td>
+                                        <td>
+                                            {{formation.description}}
+                                        </td>
+                                        <td>
+                                            {{formation.date}}
+                                        </td>
+                                        <td class="text-primary">
+                                           
+                                                {{formation.prix}} Dinars
+                                            
+                                        </td>
+                                        <br>
+                                        <button class="btn btn-info btn-sm" >Edit</button>
+                                        <button class="btn btn-danger btn-sm">Delete</button>
+                                    </tr>

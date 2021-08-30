@@ -1,0 +1,69 @@
+
+
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-danger">
+                        <h4 class="card-title ">NOS FORMATEURS</h4>
+                        <button type="button" class="btn btn-light">Ajouter un nouveau formateur</button>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead class=" text-primary">
+                                    <th>         
+                                    </th>
+                                    <th>
+                                     NOM
+                                    </th>
+                                    <th>
+                                     PRENOM
+                                    </th>
+                                    <th>
+                                    ADRESSE EMAIL
+                                    </th>
+                                    <th>
+                                       MOT DE PASSE 
+                                    </th>
+                                    <th>
+                                       CIN
+                                     </th>
+                                    <th>
+                                        TELEPHONE
+                                       </th>
+                                    <th>
+                                      ADRESSE
+                                     </th>
+                                </thead>
+                                <tbody>
+                                    <tr  *ngFor = "let formateur of formateurs">
+                                        <td>
+                                            <img src="{{formateur.imageurl}}" alt="" class="img-fluid  w-60">
+                                        </td>
+                                        <td>
+                                            {{formateur.nom}}
+                                        </td>
+                                        <td>
+                                            {{formateur.prenom}}
+                                        </td>
+                                        <td>
+                                            {{formateur.adresseemail}}
+                                        </td>
+                                        <td>
+                                            {{formateur.motdepasse}}
+                                        </td>
+                                        <td>
+                                            {{formateur.cin}}
+                                        </td>
+                                        <td>
+                                            {{formateur.numtel}}
+                                        </td>
+                                        <td>
+                                            {{formateur.adresse}}
+                                        </td>
+                                        <br>
+                                        <button class="btn btn-info btn-sm" >Edit</button>
+                                        <button class="btn btn-danger btn-sm">Delete</button>
+                                    </tr>
