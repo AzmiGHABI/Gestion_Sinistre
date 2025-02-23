@@ -7,7 +7,7 @@
                 <div class="card">
                     <div class="card-header card-header-danger">
                         <h4 class="card-title ">Les Administrateurs </h4>
-                       <button type="button" class="btn btn-light" (click)= "onOpenModal (null,'add')">Ajouter un nouveau administrateur</button>
+                       <button type="button" class="btn btn-light" >Ajouter un nouveau administrateur</button>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -64,13 +64,13 @@
                                             {{admin.adresse}}
                                         </td>
                                         <td>
-                                            <button  (click)= "onOpenModal (admin,'edit')" class="btn btn-info btn-sm" data-original-title="Edit" ><i class="fa fa-pencil" >Edit</i></button>
-                                            <button   (click)= "onOpenModal (admin,'delete')" class="btn btn-danger btn-sm" data-original-title="Delete"><i class="fa fa-times">Delete</i></button>
+                                            <button  class="btn btn-info btn-sm" data-original-title="Edit" ><i class="fa fa-pencil" >Edit</i></button>
+                                            <button    class="btn btn-danger btn-sm" data-original-title="Delete"><i class="fa fa-times">Delete</i></button>
                                         </td>
                                       
                                     </tr>
 
-                                   <!--ADD MODEL--> 
+                                   <!--ADD MODEL-
                                     <div class="modal fade" id="addAdminModal" tabindex="-1" role="dialog" aria-labelledby="addAdminModalLabel" aria-hidden="true">
                                         <div class="modal-dialog" role="document">
                                           <div class="modal-content">
@@ -124,7 +124,7 @@
                                         </div>
                                         </div>
                                         
- <!--Edit Modal -->
+ -Edit Modal --
 <div class="modal fade" id="updateAdminModal" tabindex="-1" role="dialog" aria-labelledby="AdminEditModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
        <div class="modal-content">
@@ -172,7 +172,7 @@
     </div>
   </div>
   
- <!-- Delete Modal--
+ -- Delete Modal--
   <div class="modal fade" id="deleteAdminModal" tabindex="-1" role="dialog" aria-labelledby="deleteModelLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
        <div class="modal-content">
@@ -194,10 +194,10 @@
   </div>-->
  
   
-<!--Notification for no Admins -->
+<!--Notification for no Admins --
   <div *ngIf="admins?.length == 0" class="col-lg-12 col-md-12 col-xl-12">
   <div class="alert alert-info" role="alert">
     <h4 class="alert-heading">NO AdminS!</h4>
     <p>No Admins were found.</p>
   </div>
-  </div>
+  </div> -->

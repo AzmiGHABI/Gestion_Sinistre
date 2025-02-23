@@ -18,11 +18,12 @@ import {
   AgmCoreModule
 } from '@agm/core';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
-import { FormationComponent } from './formation/formation.component';
-import { EtudiantComponent } from './etudiant/etudiant.component';
+
 import { FormateurComponent } from './formateur/formateur.component';
 import { AdminComponent } from './admin/admin.component';
 import { ArticleComponent } from './article/article.component';
+import { SitewebComponent } from './siteweb/siteweb.component';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   imports: [
@@ -43,6 +44,8 @@ import { ArticleComponent } from './article/article.component';
     FormateurComponent,
     AdminComponent,
     ArticleComponent,
+    SitewebComponent,
+    LoginComponent,
   
    
 

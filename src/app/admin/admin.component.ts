@@ -31,7 +31,7 @@ export class AdminComponent implements OnInit {
     ;
   }
   
-  public onAddAdmin(addForm: NgForm): void {
+ /* public onAddAdmin(addForm: NgForm): void {
     document.getElementById('add-admin-form').click();
     this.AdminService.addAdmin(addForm.value).subscribe(
       (response: Admin) => {
@@ -90,9 +90,7 @@ export class AdminComponent implements OnInit {
       button.setAttribute('data-target','#deleteAdminModal');
     }
     container.appendChild(button);
-    button.click();
-  }
-
-
+    button.click();}*/
+  
 
 }

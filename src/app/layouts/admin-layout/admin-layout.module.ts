@@ -14,7 +14,8 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatSelectModule} from '@angular/material/select';
 import { FormationComponent } from 'app/formation/formation.component';
-import { EtudiantComponent } from 'app/etudiant/etudiant.component';
+
+import { ExpertComponent } from './expert/expert.component';
 
 @NgModule({
   imports: [
@@ -33,9 +34,9 @@ import { EtudiantComponent } from 'app/etudiant/etudiant.component';
     DashboardComponent,
     UserProfileComponent,
     MapsComponent,
-    EtudiantComponent,
     FormationComponent,
     NotificationsComponent,
+    ExpertComponent,
   
   ]
 })

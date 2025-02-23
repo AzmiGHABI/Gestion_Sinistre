@@ -1,7 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Etudiant } from './etudiant/etudiant';
+import { Sinistre } from './etudiant/Sinistre';
+
+
 
 @Injectable({
   providedIn: 'root'
@@ -14,20 +16,20 @@ export class EtudiantService {
   constructor(private http : HttpClient) { }
 
 
-  public getEtudiants():Observable<Etudiant[]>
+  public getEtudiants():Observable<Sinistre[]>
   {
-    return this.http.get<Etudiant[]>(`${this.apiServerUrl}/Etudiant`);
+    return this.http.get<Sinistre[]>(`${this.apiServerUrl}/Etudiant`);
   }
 
 
- public addEtudiant(Etudiant :Etudiant):Observable<Etudiant>
+ public addEtudiant(Etudiant :Sinistre):Observable<Sinistre>
   {
-    return this.http.post<Etudiant>(`${this.apiServerUrl}/Etudiant/add`,Etudiant)
+    return this.http.post<Sinistre>(`${this.apiServerUrl}/Etudiant/add`,Etudiant)
   }
 
-  public updateEtudiant(Etudiant :Etudiant):Observable<Etudiant>
+  public updateEtudiant(Etudiant :Sinistre):Observable<Sinistre>
   {
-    return this.http.put<Etudiant>(`${this.apiServerUrl}/Etudiant/update`,Etudiant)
+    return this.http.put<Sinistre>(`${this.apiServerUrl}/Etudiant/update`,Etudiant)
   }
 
 

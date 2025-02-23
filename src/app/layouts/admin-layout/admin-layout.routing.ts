@@ -5,11 +5,12 @@ import { UserProfileComponent } from '../../user-profile/user-profile.component'
 import { MapsComponent } from '../../maps/maps.component';
 import { NotificationsComponent } from '../../notifications/notifications.component';
 import { FormationComponent } from 'app/formation/formation.component';
-import { EtudiantComponent } from 'app/etudiant/etudiant.component';
+
 import { FormateurComponent } from 'app/formateur/formateur.component';
 import { AdminService } from 'app/admin.service';
 import { AdminComponent } from 'app/admin/admin.component';
 import { ArticleComponent } from 'app/article/article.component';
+import { ExpertComponent } from './expert/expert.component';
 
 
 export const AdminLayoutRoutes: Routes = [
@@ -20,8 +21,9 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'article',         component: ArticleComponent },
     { path: 'formation',      component:FormationComponent },
     { path: 'admin',          component:AdminComponent},
-    { path: 'formateur',      component:FormateurComponent },
-    { path: 'etudiant',       component:EtudiantComponent},
+    { path: 'gestionnaire',      component:FormateurComponent },
+
     { path: 'notifications',  component: NotificationsComponent },
+    { path: 'expert',  component: ExpertComponent },
   
 ];

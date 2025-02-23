@@ -11,11 +11,12 @@ export const ROUTES: RouteInfo[] = [
     { path: '/dashboard', title: 'Dashboard',  icon: 'dashboard', class: '' },
     { path: '/user-profile', title: 'Profile',  icon:'person', class: '' },
     { path: '/admin', title: 'Administrateur',  icon:'engineering', class: '' },
-    { path: '/formateur', title: 'Formateur',  icon:'record_voice_over', class: '' },
-    { path: '/etudiant', title: 'Etudiant',  icon:'group', class: '' },
-    { path: '/formation', title: 'Formation',  icon:'library_books', class: '' },
+    { path: '/expert', title: 'Expert',  icon:'group', class: '' },
+   // { path: '/formateur', title: 'Gestionnaire',  icon:'record_voice_over', class: '' },
+    //{ path: '/formation', title: 'Formation',  icon:'library_books', class: '' },
     { path: '/article', title: 'Article',  icon:'library_books', class: '' },
     { path: '/maps', title: 'Maps',  icon:'location_on', class: '' },
+    
     
     
 ];
