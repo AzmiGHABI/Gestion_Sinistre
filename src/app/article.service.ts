@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Article } from './article/article';
+import { Dossier } from './article/article';
 
 @Injectable({
   providedIn: 'root'
@@ -14,20 +14,20 @@ export class ArticleService {
   constructor(private http : HttpClient) { }
 
 
-  public getArticles():Observable<Article[]>
+  public getArticles():Observable<Dossier[]>
   {
-    return this.http.get<Article[]>(`${this.apiServerUrl}/Article`);
+    return this.http.get<Dossier[]>(`${this.apiServerUrl}/Article`);
   }
 
 
- public addArticle(Article :Article):Observable<Article>
+ public addArticle(Article :Dossier):Observable<Dossier>
   {
-    return this.http.post<Article>(`${this.apiServerUrl}/Article/add`,Article)
+    return this.http.post<Dossier>(`${this.apiServerUrl}/Article/add`,Article)
   }
 
-  public updateArticle(Article :Article):Observable<Article>
+  public updateArticle(Article :Dossier):Observable<Dossier>
   {
-    return this.http.put<Article>(`${this.apiServerUrl}/Article/update`,Article)
+    return this.http.put<Dossier>(`${this.apiServerUrl}/Article/update`,Article)
   }
 
 

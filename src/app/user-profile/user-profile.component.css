@@ -1,0 +1,26 @@
+/* Changer la couleur des labels pour qu'ils soient visibles sur fond blanc */
+label {
+    color: #333 !important; /* Noir foncé pour une meilleure lisibilité */
+    font-weight: bold; /* Mettre en gras pour plus de visibilité */
+}
+
+/* Optionnel : rendre les labels encore plus visibles lors de la saisie */
+input:focus + label,
+textarea:focus + label,
+select:focus + label {
+    color: #d32f2f !important; /* Rouge pour rester cohérent avec le site */
+}
+
+/* Ajuster les placeholders si nécessaire */
+::placeholder {
+    color: #777 !important; /* Gris pour différencier du texte saisi */
+}
+
+/* Assurer un bon contraste dans les champs de formulaire */
+input, textarea {
+    color: black !important; /* Texte noir pour éviter toute invisibilité */
+    background-color: white !important; 
+    border: 1px solid #ccc;
+    padding: 8px;
+    border-radius: 4px;
+}

@@ -1,69 +1,109 @@
-
-
-<div class="main-content">
+<div class="main-content" id="main-container">
     <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-header card-header-danger">
-                        <h4 class="card-title ">NOS FORMATEURS</h4>
-                        <button type="button" class="btn btn-light">Ajouter un nouveau formateur</button>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-header card-header-danger">
+              <h4 class="card-title">Dossiers Sinistres</h4>
+            </div>
+  
+            <div class="card-body">
+              <!-- ✅ Container pour le stepper -->
+              <div class="stepper-container">
+  
+                <mat-horizontal-stepper #stepper [linear]="false">
+             
+  
+                  <!-- Étape 2 : Dossier En Cours -->
+                  <mat-step label="Dossier En Cours">
+                    <ng-container *ngIf="getDossiersByEtat('SOUS_TRAITEMENT').length > 0; else emptyState">
+                      <table class="table">
+                        <thead class="text-primary">
+                          <tr>
+                            <th>NOM</th>
+                            <th>PRENOM</th>
+                            <th>EMAIL</th>
+                            <th>DATE SINISTRE</th>
+                            <th>IMMATRICULATION</th>
+                            <th>GESTIONNAIRE</th>
+                            <th>ACTIONS</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let dossier of getDossiersByEtat('SOUS_TRAITEMENT')">
+                            <td>{{ dossier.nom }}</td>
+                            <td>{{ dossier.prenom }}</td>
+                            <td>{{ dossier.email }}</td>
+                            <td>{{ dossier.dateSinistre }}</td>
+                            <td>{{ dossier.numeroImmatriculation }}</td>
+                            <td>{{ dossier.gestionnaire }}</td>
+                            <td>
+                              <button class="btn btn-info btn-sm"><i class="fa fa-pencil" (click)="openAffectationForm(dossier)"> Edit</i></button>
+                              <button class="btn btn-danger btn-sm"><i class="fa fa-times"> Delete</i></button>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </ng-container>
+                    <div *ngIf="showAffectationForm" class="mt-3 p-3 border rounded" style="background-color: #f9f9f9;">
+                      <h5>les informations du dossier</h5>
+                      <form (ngSubmit)="affecterDossier()">
+                        <div class="form-group">
+                          <label for="gestionnaire">Nom du gestionnaire :</label>
+                          <input type="text" id="gestionnaire" [disabled]="true" [(ngModel)]="selectedDossier.gestionnaire" name="gestionnaire" class="form-control" required />
+                        </div>
+  
+                        <div class="form-group">
+                          <label for="dateAffectation">Date d'affectation :</label>
+                          <input type="date" id="dateAffectation" [disabled]="true" [(ngModel)]="selectedDossier.affectationDate" name="affectationDate" class="form-control" />
+                        </div>
+  
+                        <div class="form-group">
+                          <label for="priorite">Priorité du dossier :</label>
+                          <select id="priorite" [disabled]="true" [(ngModel)]="selectedDossier.priority" name="priority" class="form-control">
+                            <option value="Basse">Basse</option>
+                            <option value="Moyenne">Moyenne</option>
+                            <option value="Haute">Haute</option>
+                          </select>
+                        </div>
+  
+                        <div class="form-group">
+                          <label for="typeSinistre">Type de sinistre :</label>
+                          <select id="typeSinistre" [(ngModel)]="selectedDossier.sinistreType" name="sinistreType" class="form-control">
+                            <option value="Collision">Collision</option>
+                            <option value="Vol">Vol</option>
+                            <option value="Incendie">Incendie</option>
+                            <option value="Vandalisme">Vandalisme</option>
+                            <option value="Bris de glace">Bris de glace</option>
+                          </select>
+                        </div>
+  
+                        <div class="form-group">
+                          <label for="commentaire">Commentaire :</label>
+                          <textarea id="commentaire" [(ngModel)]="selectedDossier.commentaireExpert" name="commentaireExpert" class="form-control" rows="3"></textarea>
+                        </div>
+  
+                        <button type="submit" class="btn btn-success btn-sm mt-2">Modifier le dossier</button>
+                        <button type="button" class="btn btn-secondary btn-sm mt-2 ml-2" (click)="cancelAffectation()">Annuler affectation</button>
+                      </form>
                     </div>
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table">
-                                <thead class=" text-primary">
-                                    <th>         
-                                    </th>
-                                    <th>
-                                     NOM
-                                    </th>
-                                    <th>
-                                     PRENOM
-                                    </th>
-                                    <th>
-                                    ADRESSE EMAIL
-                                    </th>
-                                    <th>
-                                       MOT DE PASSE 
-                                    </th>
-                                    <th>
-                                       CIN
-                                     </th>
-                                    <th>
-                                        TELEPHONE
-                                       </th>
-                                    <th>
-                                      ADRESSE
-                                     </th>
-                                </thead>
-                                <tbody>
-                                    <tr  *ngFor = "let formateur of formateurs">
-                                        <td>
-                                            <img src="{{formateur.imageurl}}" alt="" class="img-fluid  w-60">
-                                        </td>
-                                        <td>
-                                            {{formateur.nom}}
-                                        </td>
-                                        <td>
-                                            {{formateur.prenom}}
-                                        </td>
-                                        <td>
-                                            {{formateur.adresseemail}}
-                                        </td>
-                                        <td>
-                                            {{formateur.motdepasse}}
-                                        </td>
-                                        <td>
-                                            {{formateur.cin}}
-                                        </td>
-                                        <td>
-                                            {{formateur.numtel}}
-                                        </td>
-                                        <td>
-                                            {{formateur.adresse}}
-                                        </td>
-                                        <br>
-                                        <button class="btn btn-info btn-sm" >Edit</button>
-                                        <button class="btn btn-danger btn-sm">Delete</button>
-                                    </tr>
+                    <button mat-button (click)="stepper.next()">Suivant</button>
+                  </mat-step>
+  
+            
+                </mat-horizontal-stepper>
+  
+              </div> <!-- 🔚 Fin stepper-container -->
+  
+              <ng-template #emptyState>
+                <p class="no-dossier">Aucun dossier disponible</p>
+              </ng-template>
+  
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+    

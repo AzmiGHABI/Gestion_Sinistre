@@ -1,13 +1,11 @@
-
-
 <div class="main-content" id="main-container">
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header card-header-danger">
-                        <h4 class="card-title ">Les Administrateurs </h4>
-                       <button type="button" class="btn btn-light" >Ajouter un nouveau administrateur</button>
+                        <h4 class="card-title ">Dossiers Sinistres </h4>
+                       <button type="button" class="btn btn-light" >Ajouter un nouveau Dossier sinistre</button>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -25,9 +23,6 @@
                                     ADRESSE EMAIL
                                     </th>
                                     <th>
-                                       MOT DE PASSE 
-                                    </th>
-                                    <th>
                                        CIN
                                      </th>
                                     <th>
@@ -36,6 +31,13 @@
                                     <th>
                                       ADRESSE
                                      </th>
+                                     <th>
+                                       CONTRAT D'ASSURANCE
+                                      </th>
+                                    
+
+
+                                     
                                 </thead>
                                 <tbody>
                                     <tr  *ngFor = "let admin of admins">

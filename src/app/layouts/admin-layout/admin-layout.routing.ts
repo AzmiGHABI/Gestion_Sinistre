@@ -11,6 +11,7 @@ import { AdminService } from 'app/admin.service';
 import { AdminComponent } from 'app/admin/admin.component';
 import { ArticleComponent } from 'app/article/article.component';
 import { ExpertComponent } from './expert/expert.component';
+import { FoldersComponent } from 'app/folders/folders.component';
 
 
 export const AdminLayoutRoutes: Routes = [
@@ -18,12 +19,12 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard',      component: DashboardComponent },
     { path: 'user-profile',   component: UserProfileComponent },
     { path: 'maps',           component: MapsComponent },
-    { path: 'article',         component: ArticleComponent },
     { path: 'formation',      component:FormationComponent },
     { path: 'admin',          component:AdminComponent},
     { path: 'gestionnaire',      component:FormateurComponent },
-
     { path: 'notifications',  component: NotificationsComponent },
     { path: 'expert',  component: ExpertComponent },
+    { path: 'dossiers',  component: ArticleComponent },
+    { path: 'folders',  component: FoldersComponent }
   
 ];

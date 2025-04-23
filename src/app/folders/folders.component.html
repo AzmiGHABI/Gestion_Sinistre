@@ -1,0 +1,268 @@
+<div class="main-content" id="main-container">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header card-header-danger">
+            <h4 class="card-title">Dossiers Sinistres</h4>
+          </div>
+
+          <div class="card-body">
+            <div class="stepper-container">
+              <mat-horizontal-stepper #stepper [linear]="false">
+
+                <!-- Étape 1 : Dossier Déclaré -->
+                <mat-step label="Dossier Déclaré">
+                  <ng-container *ngIf="getDossiersByEtat('Declared').length > 0; else emptyState">
+                    <table class="table">
+                      <thead class="text-primary">
+                        <tr>
+                          <th>Numéro Dossier</th>
+                          <th>NOM</th>
+                          <th>PRENOM</th>
+                          <th>EMAIL</th>
+                          <th>DATE SINISTRE</th>
+                          <th>IMMATRICULATION</th>
+                          <th>PHOTO</th>
+                          <th>ACTIONS</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let dossier of getDossiersByEtat('Declared')">
+                          <td>{{ dossier.id }}</td>
+                          <td>{{ dossier.nom }}</td>
+                          <td>{{ dossier.prenom }}</td>
+                          <td>{{ dossier.email }}</td>
+                          <td>{{ dossier.dateSinistre }}</td>
+                          <td>{{ dossier.numeroImmatriculation }}</td>
+                          <td><img [src]="dossier.photoVehicule" alt="Photo" width="60"></td>
+                          <td>
+                            <button class="btn btn-info btn-sm" (click)="openAffectationForm(dossier)">
+                              <i class="fa fa-pencil"> Edit</i>
+                            </button>
+                            <button class="btn btn-danger btn-sm"><i class="fa fa-times"> Delete</i></button>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </ng-container>
+                  <button mat-button (click)="stepper.next()">Suivant</button>
+                </mat-step>
+
+                <!-- Étape 2 : Dossier En Cours -->
+                <mat-step label="Dossier En Cours">
+                  <ng-container *ngIf="getDossiersByEtat('SOUS_TRAITEMENT').length > 0; else emptyState">
+                    <table class="table">
+                      <thead class="text-primary">
+                        <tr>
+                          <th>NOM</th>
+                          <th>PRENOM</th>
+                          <th>EMAIL</th>
+                          <th>DATE SINISTRE</th>
+                          <th>IMMATRICULATION</th>
+                          <th>GESTIONNAIRE</th>
+                          <th>RÉGION</th>
+                          <th>ACTIONS</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let dossier of getDossiersByEtat('SOUS_TRAITEMENT')">
+                          <td>{{ dossier.nom }}</td>
+                          <td>{{ dossier.prenom }}</td>
+                          <td>{{ dossier.email }}</td>
+                          <td>{{ dossier.dateSinistre }}</td>
+                          <td>{{ dossier.numeroImmatriculation }}</td>
+                          <td>{{ dossier.gestionnaire }}</td>
+                          <td>{{ dossier.region }}</td>
+                          <td>
+                            <button class="btn btn-info btn-sm" (click)="openAffectationForm(dossier)">
+                              <i class="fa fa-pencil"> Edit</i>
+                            </button>
+                            <button class="btn btn-danger btn-sm"><i class="fa fa-times"> Delete</i></button>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </ng-container>
+                  <button mat-button (click)="stepper.next()">Suivant</button>
+                </mat-step>
+
+                <!-- Étape 3 : Dossier en Attente de Validation -->
+                <mat-step label="Dossier en Attente de Validation">
+                  <ng-container *ngIf="getDossiersByEtat('En attente').length > 0; else emptyState">
+                    <ul>
+                      <li *ngFor="let dossier of getDossiersByEtat('En attente')">{{ dossier.nom }}</li>
+                    </ul>
+                  </ng-container>
+                  <button mat-button (click)="stepper.next()">Suivant</button>
+                </mat-step>
+
+                <!-- Étape 4 : Dossier Validé -->
+                <mat-step label="Dossier Validé">
+                  <ng-container *ngIf="getDossiersByEtat('Validé').length > 0; else emptyState">
+                    <ul>
+                      <li *ngFor="let dossier of getDossiersByEtat('Validé')">{{ dossier.nom }}</li>
+                    </ul>
+                  </ng-container>
+                  <button mat-button (click)="stepper.next()">Suivant</button>
+                </mat-step>
+
+                <!-- Étape 5 : Autres Dossiers -->
+                <mat-step label="Autres Dossiers">
+                  <ng-container *ngIf="getDossiersByEtat('Autre').length > 0; else emptyState">
+                    <ul>
+                      <li *ngFor="let dossier of getDossiersByEtat('Autre')">{{ dossier.nom }}</li>
+                    </ul>
+                  </ng-container>
+                  <button mat-button (click)="stepper.previous()">Retour</button>
+                </mat-step>
+
+              </mat-horizontal-stepper>
+            </div>
+
+            <ng-template #emptyState>
+              <p class="no-dossier">Aucun dossier disponible</p>
+            </ng-template>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+  
+ 
+ 
+                                    <!--ADD MODEL-
+                                     <div class="modal fade" id="addAdminModal" tabindex="-1" role="dialog" aria-labelledby="addAdminModalLabel" aria-hidden="true">
+                                         <div class="modal-dialog" role="document">
+                                           <div class="modal-content">
+                                              <div class="modal-header">
+                                                 <h5 class="modal-title" id="addAdminModalLabel">Add Admin</h5>
+                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                 <span aria-hidden="true">&times;</span>
+                                                 </button>
+                                              </div>
+                                              <div class="modal-body">
+                                                 <form #addForm="ngForm" (ngSubmit)="onAddAdmin (addForm)">
+                                                 <div class="form-group">
+                                                    <label for="nom">NOM</label>
+                                                    <input type="text" ngModel name="nom" class="form-control" id="nom" placeholder="Nom" required>
+                                                 </div>
+                                                 <div class="form-group">
+                                                     <label for="prenom">PRENOM</label>
+                                                     <input type="text" ngModel name="prenom" class="form-control" id="prenom" placeholder="Prenom" required>
+                                                  </div>
+                                                  <div class="form-group">
+                                                     <label for="cin">CIN</label>
+                                                     <input type="number" ngModel name="cin" class="form-control" id="cin" placeholder="cin" required maxlength="8">
+                                                  </div>
+                                                 <div class="form-group">
+                                                    <label for="adresseemail">Adresse Email</label>
+                                                    <input type="email" ngModel name="adresseemail" class="form-control" id="adresseemail" placeholder="Email" required>
+                                                 </div>
+                                                 <div class="form-group">
+                                                     <label for="motdepasse">MOT DE PASSE</label>
+                                                     <input type="password" ngModel name="motdepasse" class="form-control" id="motdepasse" placeholder="Mot De Passe" required>
+                                                  </div>
+                                                 <div class="form-group">
+                                                    <label for="adresse">Adresse</label>
+                                                    <input type="text" ngModel name="adresse" class="form-control" id="adresse" placeholder="Adresse" required>
+                                                 </div>
+                                                 <div class="form-group">
+                                                    <label for="numtel">Numéro De Téléphone</label>
+                                                    <input type="number" ngModel name="numtel" class="form-control" id="numtel" placeholder="Numéro De Téléphone" required>
+                                                 </div>
+                                                 <div class="form-group">
+                                                    <label for="imageurl">Image URL</label>
+                                                    <input type="text" ngModel name="imageurl" class="form-control" id="imageurl" placeholder="Image URL" required>
+                                                 </div>
+                                                 <div class="modal-footer">
+                                                    <button type="button" id="add-Admin-form" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                                                    <button [disabled]="addForm.invalid" type="submit" class="btn btn-primary" >Sauvgarder</button>
+                                                 </div>
+                                                 </form>
+                                              </div>
+                                           </div>
+                                         </div>
+                                         </div>
+                                         
+  -Edit Modal --
+ <div class="modal fade" id="updateAdminModal" tabindex="-1" role="dialog" aria-labelledby="AdminEditModalLabel" aria-hidden="true">
+     <div class="modal-dialog" role="document">
+        <div class="modal-content">
+           <div class="modal-header">
+              <h5 class="modal-title" id="updateAdminModalLabel">Edit Admin {{editAdmin?.nom}}</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+              </button>
+           </div>
+           <div class="modal-body">
+              <form #editForm="ngForm">
+                 <div class="form-group">
+                    <label for="nom">Non</label>
+                    <input type="text" ngModel="{{editAdmin?.nom}}" name="nom" class="form-control" id="nom" aria-describedby="emailHelp" placeholder="Nom">
+                 </div>
+                 <div class="form-group">
+                   <label for="prenom">Prénom</label>
+                   <input type="text" ngModel="{{editAdmin?.prenom}}" name="prenom" class="form-control" id="prenom" aria-describedby="emailHelp" placeholder="Prénom">
+                </div>
+                <input type="hidden" ngModel="{{editAdmin?.id}}" name="id" class="form-control" id="id" placeholder="Email">
+                 <input type="hidden" ngModel="{{editAdmin?.cin}}" name="cin" class="form-control" id="cin" placeholder="CIN">
+                 <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" ngModel="{{editAdmin?.adresseemail}}" name="adresseemail" class="form-control" id="adresseemail" placeholder="Email">
+                 </div>
+                 <div class="form-group">
+                    <label for="motdepasse">Mot De Passe</label>
+                    <input type="text" ngModel="{{editAdmin?.motdepasse}}" name="motdepasse" class="form-control" id="motdepasse" placeholder="Mot De Passe" maxlength="8">
+                 </div>
+                 <div class="form-group">
+                    <label for="numtel">Numéro De Télèphone</label>
+                    <input type="number" ngModel="{{editAdmin?.numtel}}" name="numtel" class="form-control" id="numtel" placeholder="Phone">
+                 </div>
+                 <div class="form-group">
+                    <label for="imageurl">Image URL</label>
+                    <input type="text" ngModel="{{editAdmin?.imageurl}}" name="imageurl" class="form-control" id="imageurl" placeholder="Image URL">
+                 </div>
+                 <div class="modal-footer">
+                    <button type="button" id="" data-dismiss="modal" class="btn btn-secondary">Close</button>
+                    <button (click)="onUpdateAdmin(editForm.value)" data-dismiss="modal" class="btn btn-primary" >Save changes</button>
+                 </div>
+              </form>
+           </div>
+        </div>
+     </div>
+   </div>
+   
+  -- Delete Modal--
+   <div class="modal fade" id="deleteAdminModal" tabindex="-1" role="dialog" aria-labelledby="deleteModelLabel" aria-hidden="true">
+     <div class="modal-dialog" role="document">
+        <div class="modal-content">
+           <div class="modal-header">
+              <h5 class="modal-title" id="deleteModelLabel">supprimer Admin</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+              </button>
+           </div>
+           <div class="modal-body">
+              <p>Etes vous sure de supprimer  {{deleteAdmin?.name}}?</p>
+              <div class="modal-footer">
+                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Non</button>
+                 <button (click)="onDeleteAdmin(deleteAdmin?.id)" class="btn btn-danger" data-dismiss="modal">Oui</button>
+              </div>
+           </div>
+          </div>>
+     </div>
+   </div>-->
+  
+   
+ <!--Notification for no Admins --
+   <div *ngIf="admins?.length == 0" class="col-lg-12 col-md-12 col-xl-12">
+   <div class="alert alert-info" role="alert">
+     <h4 class="alert-heading">NO AdminS!</h4>
+     <p>No Admins were found.</p>
+   </div>
+   </div> -->

@@ -7,6 +7,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UserProfileComponent implements OnInit {
 
+  expert = {
+    nom: 'Ghabi',
+    prenom: 'Azmi',
+    email: 'azmighabi@gmail.com',
+    telephone: '+216 5454654654',
+    adresse: 'Tunis, Tunisie'
+  };
+
   constructor() { }
 
   ngOnInit() {

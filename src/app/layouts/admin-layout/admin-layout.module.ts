@@ -1,3 +1,6 @@
+import { MatStepperModule } from '@angular/material/stepper';
+import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
@@ -16,6 +19,7 @@ import {MatSelectModule} from '@angular/material/select';
 import { FormationComponent } from 'app/formation/formation.component';
 
 import { ExpertComponent } from './expert/expert.component';
+import { ArticleComponent } from 'app/article/article.component';
 
 @NgModule({
   imports: [
@@ -29,6 +33,9 @@ import { ExpertComponent } from './expert/expert.component';
     MatInputModule,
     MatSelectModule,
     MatTooltipModule,
+    MatStepperModule,    // 👈 ajouté ici
+    MatCardModule,       // 👈 pour afficher les dossiers joliment
+    MatIconModule        // 👈 utile si tu veux utiliser des icônes dans les steps
   ],
   declarations: [
     DashboardComponent,
@@ -37,7 +44,7 @@ import { ExpertComponent } from './expert/expert.component';
     FormationComponent,
     NotificationsComponent,
     ExpertComponent,
-  
+    ArticleComponent
   ]
 })
 

@@ -1,0 +1,58 @@
+<h5>Affecter le dossier à un Expert</h5>
+<form (ngSubmit)="onSubmit()">
+  <!-- Région -->
+  <div class="form-group">
+    <label for="region">Région :</label>
+    <select id="region" [(ngModel)]="data.dossier.region" name="region" class="form-control" required (change)="onRegionChange(data.dossier.region)">
+      <option *ngFor="let region of data.regions" [value]="region">{{ region }}</option>
+    </select>
+  </div>
+
+  <!-- Expert -->
+  <div class="form-group" *ngIf="filteredExperts.length > 0">
+    <label for="expert">Nom de l'expert :</label>
+    <select id="expert" [(ngModel)]="data.dossier.expert" name="expert" class="form-control" required>
+      <option *ngFor="let expert of filteredExperts" [ngValue]="expert">{{ expert.nom +" "+expert.prenom }}</option>
+    </select>
+  </div>
+  <div *ngIf="filteredExperts.length === 0" class="alert alert-warning">
+    Aucun expert disponible pour cette région.
+  </div>
+
+  <!-- Date Affectation -->
+  <div class="form-group">
+    <label for="dateAffectation">Date d'affectation :</label>
+    <input type="date" id="dateAffectation" [(ngModel)]="data.dossier.affectationDate" name="affectationDate" class="form-control" />
+  </div>
+
+  <!-- Priorité -->
+  <div class="form-group">
+    <label for="priorite">Priorité du dossier :</label>
+    <select id="priorite" [(ngModel)]="data.dossier.priority" name="priority" class="form-control">
+      <option value="Basse">Basse</option>
+      <option value="Moyenne">Moyenne</option>
+      <option value="Haute">Haute</option>
+    </select>
+  </div>
+
+  <!-- Type sinistre -->
+  <div class="form-group">
+    <label for="typeSinistre">Type de sinistre :</label>
+    <select id="typeSinistre" [(ngModel)]="data.dossier.sinistreType" name="sinistreType" class="form-control">
+      <option value="Collision">Collision</option>
+      <option value="Vol">Vol</option>
+      <option value="Incendie">Incendie</option>
+      <option value="Vandalisme">Vandalisme</option>
+      <option value="Bris de glace">Bris de glace</option>
+    </select>
+  </div>
+
+  <!-- Commentaire -->
+  <div class="form-group">
+    <label for="commentaire">Commentaire :</label>
+    <textarea id="commentaire" [(ngModel)]="data.dossier.commentaireExpert" name="commentaireExpert" class="form-control" rows="3"></textarea>
+  </div>
+
+  <button type="submit" class="btn btn-success btn-sm mt-2">Affecter</button>
+  <button type="button" class="btn btn-secondary btn-sm mt-2 ml-2" (click)="onCancel()">Annuler</button>
+</form>

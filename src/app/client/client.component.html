@@ -1,0 +1,103 @@
+<div class="bna-header">
+  <div class="logo-text" style="display: flex; justify-content: center; gap: 20px; align-items: center;">
+    <span style="font-size: 2.5rem; font-weight: 700;">BNA</span>
+    <span style="font-size: 1.8rem; font-weight: 300;">ASSURANCES</span>
+  </div>
+  <h1>VOTRE SÉCURITÉ, NOTRE PRIORITÉ</h1>
+</div>
+
+<div class="client-form-container">
+  <form (ngSubmit)="onSubmit()" #sinistreForm="ngForm" class="sinistre-form">
+    <!-- Votre formulaire existant reste inchangé -->
+    <!-- ... -->
+  </form>
+
+  <div class="message-box" *ngIf="message" [class.success]="isSuccess" [class.error]="!isSuccess">
+    <i class="fas" [class.fa-check-circle]="isSuccess" [class.fa-exclamation-circle]="!isSuccess"></i>
+    {{ message }}
+  </div>
+</div>
+
+<app-chatbot (quickActionSelected)="handleQuickAction($event)"></app-chatbot>
+<body>
+<div class="client-form-container">
+  <form (ngSubmit)="onSubmit()" #sinistreForm="ngForm" class="sinistre-form">
+    <div class="form-section personal-info">
+      <h2><i class="fas fa-user"></i> Informations personnelles</h2>
+      
+      <div class="form-group">
+        <label for="nom">Nom :</label>
+        <input type="text" id="nom" [(ngModel)]="sinistre.nom" name="nom" required>
+      </div>
+      
+      <div class="form-group">
+        <label for="prenom">Prénom :</label>
+        <input type="text" id="prenom" [(ngModel)]="sinistre.prenom" name="prenom" required>
+      </div>
+      
+      <div class="form-group">
+        <label for="email">Email :</label>
+        <input type="email" id="email" [(ngModel)]="sinistre.email" name="email" required>
+      </div>
+      
+      <div class="form-group">
+        <label for="cin">CIN :</label>
+        <input type="text" id="cin" [(ngModel)]="sinistre.cin" name="cin" required>
+      </div>
+    </div>
+
+    <div class="form-section sinistre-info">
+      <h2><i class="fas fa-car-crash"></i> Détails du sinistre</h2>
+      
+      <div class="form-group">
+        <label for="dateSinistre">Date du sinistre :</label>
+        <input type="date" id="dateSinistre" [(ngModel)]="sinistre.dateSinistre" name="dateSinistre" required>
+      </div>
+      
+      <div class="form-group">
+        <label for="immatriculation">Numéro d'immatriculation :</label>
+        <input type="text" id="immatriculation" [(ngModel)]="sinistre.numeroImmatriculation" name="immatriculation" required>
+      </div>
+      
+      <div class="form-group">
+        <label for="lieuSinistre">Lieu du sinistre :</label>
+        <select id="lieuSinistre" [(ngModel)]="sinistre.lieuSinistre" name="lieuSinistre" required>
+          <option value="" disabled selected>Sélectionnez une région</option>
+          <option *ngFor="let region of regions" [value]="region">{{ region }}</option>
+        </select>
+      </div>
+      
+      <div class="form-group">
+        <label for="photoVehicule">Photo du véhicule :</label>
+        <div class="file-upload">
+          <input type="file" id="photoVehicule" (change)="onFileSelected($event)" name="photoVehicule" accept="image/*">
+          <label for="photoVehicule" class="upload-btn">
+            <i class="fas fa-camera"></i> Choisir une photo
+          </label>
+          <span class="file-name">{{ sinistre.photoVehicule?.name || 'Aucun fichier sélectionné' }}</span>
+        </div>
+        <div class="image-preview" *ngIf="imagePreview">
+          <img [src]="imagePreview" alt="Aperçu de la photo du véhicule">
+        </div>
+      </div>
+    </div>
+
+    <div class="form-section comment-section">
+      <h2><i class="fas fa-comment"></i> Commentaire</h2>
+      <textarea id="commentaire" [(ngModel)]="sinistre.commentaireClient" name="commentaireClient" rows="4" 
+                placeholder="Décrivez en détail ce qui s'est passé..."></textarea>
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" class="submit-btn" [disabled]="!sinistreForm.form.valid">
+        <i class="fas fa-paper-plane"></i> Envoyer la déclaration
+      </button>
+    </div>
+  </form>
+
+  <div class="message-box" *ngIf="message" [class.success]="isSuccess" [class.error]="!isSuccess">
+    <i class="fas" [class.fa-check-circle]="isSuccess" [class.fa-exclamation-circle]="!isSuccess"></i>
+    {{ message }}
+  </div>
+</div>
+</body>

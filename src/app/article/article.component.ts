@@ -1,33 +1,35 @@
+import { Component, OnInit } from '@angular/core'; 
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
-import { ArticleService } from 'app/article.service';
-import { Article } from './article';
+import { Dossier } from './dossier';
+import { DossierService } from './dossier.service';
 
 @Component({
-  selector: 'article',
+  selector: 'app-article',
   templateUrl: './article.component.html',
   styleUrls: ['./article.component.css']
 })
 export class ArticleComponent implements OnInit {
+  public dossiers: Dossier[] = [];
 
-  articles: Article[] = [];
-  constructor(private ArticleService :ArticleService) { }
+  constructor(private dossierService: DossierService) {}
 
   ngOnInit(): void {
-    this.getArticles();
+    this.getDossiers();
   }
 
-  public getArticles():void
-  {
-    this.ArticleService.getArticles().subscribe((response:Article[])=>
-    {
-      console.log("res",response);
-      this.articles = response;
-
-    },
-    (error: HttpErrorResponse) => {alert(error.message);}
-    )
-    ;
+  public getDossiers(): void {
+    this.dossierService.getDossiers().subscribe(
+      (response: Dossier[]) => {
+        console.log('Dossiers récupérés:', response);
+        this.dossiers = response;
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message);
+      }
+    );
   }
 
+  public getDossiersByEtat(etat: string): Dossier[] {
+    return this.dossiers.filter(dossier => dossier?.statut === etat);
+  }
 }
