@@ -1,0 +1,47 @@
+<div class="container mt-4">
+    <h3>Gérer les Experts</h3>
+  
+    <!-- ✅ Barre de recherche -->
+    <div class="form-group mt-3">
+      <input [(ngModel)]="searchTerm" placeholder="🔍 Rechercher un expert par nom, prénom ou email" class="form-control">
+    </div>
+  
+    <form (ngSubmit)="saveExpert()" class="mt-4">
+      <div class="form-group" *ngFor="let field of ['nom','prenom','email','cin','numTel','adresse','region']">
+        <label [for]="field">{{ field | titlecase }}</label>
+        <input class="form-control" [(ngModel)]="selectedExpert[field]" [name]="field" required>
+      </div>
+  
+      <button type="submit" class="btn btn-success">
+        {{ isEditing ? 'Mettre à jour' : 'Ajouter' }}
+      </button>
+      <button type="button" class="btn btn-secondary ml-2" (click)="resetForm()">Annuler</button>
+    </form>
+  
+    <hr>
+  
+    <table class="table table-striped mt-4">
+      <thead>
+        <tr>
+          <th *ngFor="let col of ['Nom', 'Prénom', 'Email', 'CIN', 'Téléphone', 'Adresse', 'Région']">{{ col }}</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let expert of filteredExperts">
+          <td>{{ expert.nom }}</td>
+          <td>{{ expert.prenom }}</td>
+          <td>{{ expert.email }}</td>
+          <td>{{ expert.cin }}</td>
+          <td>{{ expert.numTel }}</td>
+          <td>{{ expert.adresse }}</td>
+          <td>{{ expert.region }}</td>
+          <td>
+            <button class="btn btn-sm btn-info" (click)="editExpert(expert)">Modifier</button>
+            <button class="btn btn-sm btn-danger ml-2" (click)="deleteExpert(expert.id!)">Supprimer</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  
