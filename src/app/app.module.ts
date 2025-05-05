@@ -1,9 +1,9 @@
 import { ChatbotModule } from './client/chatbot.module';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NgModule } from '@angular/core';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 
 
@@ -26,10 +26,12 @@ import { LoginComponent } from './login/login.component';
 import { ClientComponent } from './client/client.component';
 import { FoldersComponent } from './folders/folders.component';
 import { AffectationDialogComponent } from './affectation-dialog/affectation-dialog.component';
+import { AuthInterceptor } from './auth.interceptor';
+import { KeycloakService } from './keycloack.service';
 
-
-
- // ✅ bon chemin ici
+export function initializeKeycloak(keycloak: KeycloakService) {
+  return () => keycloak.init();
+}
 
 @NgModule({
   imports: [
@@ -60,7 +62,19 @@ import { AffectationDialogComponent } from './affectation-dialog/affectation-dia
     FoldersComponent,
     AffectationDialogComponent
   ],
-  providers: [],
+  providers: [
+    {
+      provide: APP_INITIALIZER,
+      useFactory: initializeKeycloak,
+      multi: true,
+      deps: [KeycloakService]
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ROUTES } from 'app/dashboard/dashboard.component';
+
 
 declare const $: any;
 export declare interface RouteInfo {
@@ -15,11 +15,31 @@ export declare interface RouteInfo {
 })
 export class SidebarComponent implements OnInit {
   menuItems: any[];
+  allRoutes: RouteInfo[] = [
+    { path: '/declarationSinistre', title: 'Client Side', icon: 'dashboard', class: '' },
+    { path: '/dashboard', title: 'Dashboard', icon: 'dashboard', class: '' },
+    { path: '/gestionnaire', title: 'Gestionnaire', icon: 'engineering', class: '' },
+    { path: '/expert', title: 'Expert', icon: 'group', class: '' },
+    { path: '/folders', title: 'Dossier', icon: 'library_books', class: '' }
+  ];
+  routes: RouteInfo[] = [];
 
   constructor() { }
 
   ngOnInit() {
-    this.menuItems = ROUTES.filter(menuItem => menuItem);
+    this.routes = this.getRoutesByRole();
+    this.menuItems = this.routes.filter(menuItem => menuItem);
+  }
+  getRoutesByRole(): RouteInfo[] {
+    const roles = JSON.parse(sessionStorage.getItem('client') || '[]');
+
+    return this.allRoutes.filter(route => {
+      if (route.path === '/gestionnaire') return roles.includes('gestionnaire');
+      if (route.path === '/dashboard') return roles.includes('gestionnaire');
+      if (route.path === '/expert') return roles.includes('expert');
+      if (route.path === '/declarationSinistre') return roles.includes('api-user');
+      return true; // dashboard, folders visible à tous
+    });
   }
   isMobileMenu() {
       if ($(window).width() > 991) {

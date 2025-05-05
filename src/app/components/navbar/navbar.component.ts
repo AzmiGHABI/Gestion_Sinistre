@@ -1,7 +1,9 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
-import { ROUTES } from 'app/dashboard/dashboard.component';
+
 import {Location, LocationStrategy, PathLocationStrategy} from '@angular/common';
 import { Router } from '@angular/router';
+import { KeycloakService } from 'app/keycloack.service';
+import { RouteInfo } from '../sidebar/sidebar.component';
 
 @Component({
   selector: 'app-navbar',
@@ -14,14 +16,23 @@ export class NavbarComponent implements OnInit {
       mobile_menu_visible: any = 0;
     private toggleButton: any;
     private sidebarVisible: boolean;
+    allRoutes: RouteInfo[] = [
+        { path: '/declarationSinistre', title: 'Client Side', icon: 'dashboard', class: '' },
+        { path: '/dashboard', title: 'Dashboard', icon: 'dashboard', class: '' },
+        { path: '/gestionnaire', title: 'Gestionnaire', icon: 'engineering', class: '' },
+        { path: '/expert', title: 'Expert', icon: 'group', class: '' },
+        { path: '/folders', title: 'Dossier', icon: 'library_books', class: '' }
+      ];
+    
 
-    constructor(location: Location,  private element: ElementRef, private router: Router) {
+    constructor(location: Location,private keycloackService : KeycloakService, private element: ElementRef, private router: Router) {
       this.location = location;
           this.sidebarVisible = false;
     }
-
+    routes: RouteInfo[] = [];
     ngOnInit(){
-      this.listTitles = ROUTES.filter(listTitle => listTitle);
+     this.routes = this.getRoutesByRole();
+      this.listTitles = this.routes.filter(listTitle => listTitle);
       const navbar: HTMLElement = this.element.nativeElement;
       this.toggleButton = navbar.getElementsByClassName('navbar-toggler')[0];
       this.router.events.subscribe((event) => {
@@ -33,7 +44,17 @@ export class NavbarComponent implements OnInit {
          }
      });
     }
-
+    getRoutesByRole(): RouteInfo[] {
+        const roles = JSON.parse(sessionStorage.getItem('client') || '[]');
+    
+        return this.allRoutes.filter(route => {
+          if (route.path === '/gestionnaire') return roles.includes('gestionnaire');
+          if (route.path === '/dashboard') return roles.includes('gestionnaire');
+          if (route.path === '/expert') return roles.includes('expert');
+          if (route.path === '/declarationSinistre') return roles.includes('api-user');
+          return true; // dashboard, folders visible à tous
+        });
+      }
     sidebarOpen() {
         const toggleButton = this.toggleButton;
         const body = document.getElementsByTagName('body')[0];
@@ -51,6 +72,10 @@ export class NavbarComponent implements OnInit {
         this.sidebarVisible = false;
         body.classList.remove('nav-open');
     };
+    logOutFrom()
+    {
+        this.keycloackService.logout();
+    }
     sidebarToggle() {
         // const toggleButton = this.toggleButton;
         // const body = document.getElementsByTagName('body')[0];
